@@ -1415,6 +1415,29 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const audioComposable = useAudio(state, utils);
             const uiComposable = useUI(state, utils, processedTranscription);
+
+            // Wrap switchToUploadView to prevent data loss on unsaved recording
+            const originalSwitchToUploadView = uiComposable.switchToUploadView;
+            uiComposable.switchToUploadView = () => {
+                // Check for unsaved recording (audioBlobURL or isRecording)
+                if (audioComposable.hasUnsavedRecording()) {
+                    const msg = safeT('messages.beforeunloadRecording') || 'You have an unsaved recording. Are you sure you want to leave?';
+                    if (!confirm(msg)) {
+                        return;
+                    }
+                }
+                // Check for incognito recording
+                if (selectedRecording.value?.id === 'incognito') {
+                    const msg = safeT('messages.beforeunloadIncognito') || 'You have an incognito recording that will be lost. Are you sure you want to leave?';
+                    if (!confirm(msg)) {
+                        return;
+                    }
+                    IncognitoStorage.clearIncognitoRecording();
+                    incognitoRecording.value = null;
+                }
+                originalSwitchToUploadView();
+            };
+
             const modalsComposable = useModals(state, utils);
             const sharingComposable = useSharing(state, utils);
             const transcriptionComposable = useTranscription(state, utils);
