@@ -2519,7 +2519,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (audioComposable.hasUnsavedRecording()) {
                         e.preventDefault();
                         e.returnValue = ''; // Chrome requires this
-                        return 'You have an unsaved recording. Are you sure you want to leave?';
+                        return window.i18n ? window.i18n.t('messages.beforeunloadRecording') : 'You have an unsaved recording. Are you sure you want to leave?';
                     }
                     // Check for incognito recording that would be lost
                     // Only warn if we're currently viewing the incognito recording
@@ -2527,7 +2527,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     if (uploadComposable.hasIncognitoRecording() && selectedRecording.value?.id === 'incognito') {
                         e.preventDefault();
                         e.returnValue = ''; // Chrome requires this
-                        return 'You have an incognito recording that will be lost. Are you sure you want to leave?';
+                        return window.i18n ? window.i18n.t('messages.beforeunloadIncognito') : 'You have an incognito recording that will be lost. Are you sure you want to leave?';
                     }
                 });
 

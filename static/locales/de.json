@@ -1070,7 +1070,9 @@
     "transcriptDownloadFailed": "Download des Transkripts fehlgeschlagen",
     "transcriptDownloadSuccess": "Transkript erfolgreich heruntergeladen!",
     "transcriptionCopied": "Transkription in die Zwischenablage kopiert!",
-    "transcriptionUpdated": "Transkription erfolgreich aktualisiert"
+    "transcriptionUpdated": "Transkription erfolgreich aktualisiert",
+    "beforeunloadRecording": "Sie haben eine ungespeicherte Aufnahme. Möchten Sie die Seite wirklich verlassen?",
+    "beforeunloadIncognito": "Sie haben eine Inkognito-Aufnahme, die verloren geht. Möchten Sie die Seite wirklich verlassen?"
   },
   "metadata": {
     "cancelEdit": "Abbrechen",

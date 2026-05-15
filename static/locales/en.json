@@ -1070,7 +1070,9 @@
     "transcriptDownloadFailed": "Failed to download transcript",
     "transcriptDownloadSuccess": "Transcript downloaded successfully!",
     "transcriptionCopied": "Transcription copied to clipboard!",
-    "transcriptionUpdated": "Transcription updated successfully"
+    "transcriptionUpdated": "Transcription updated successfully",
+    "beforeunloadRecording": "You have an unsaved recording. Are you sure you want to leave?",
+    "beforeunloadIncognito": "You have an incognito recording that will be lost. Are you sure you want to leave?"
   },
   "metadata": {
     "cancelEdit": "Cancel",
