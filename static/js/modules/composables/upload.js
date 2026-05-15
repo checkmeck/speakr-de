@@ -5,6 +5,7 @@
 
 import * as FailedUploads from '../db/failed-uploads.js';
 import * as IncognitoStorage from '../db/incognito-storage.js';
+import * as RecordingDB from '../db/recording-persistence.js';
 
 // Parse error message and return friendly error info
 function getFriendlyError(errorMessage, t) {
@@ -467,6 +468,15 @@ export function useUpload(state, utils) {
             fileItem.status = 'pending';
             fileItem.recordingId = data.id;
             fileItem.progress = 100;
+
+            // Clear IndexedDB recording session only after confirmed server success
+            if (fileItem.fromRecording) {
+                try {
+                    await RecordingDB.clearRecordingSession();
+                } catch (dbError) {
+                    console.warn('[Upload] Failed to clear IndexedDB session:', dbError);
+                }
+            }
 
             // Add to recordings list
             recordings.value.unshift(data);

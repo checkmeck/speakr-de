@@ -524,6 +524,7 @@ export function useAudio(state, utils) {
             tags: selectedTags, // Completely non-reactive deep copy
             folder_id: selectedFolderId.value,
             preserveOptions: true, // Prevents startUpload from overwriting recording's options
+            fromRecording: true, // Marks this as a recording-session upload (clears IndexedDB on success)
             asrOptions: {
                 language: asrLanguage.value,
                 min_speakers: asrMinSpeakers.value,
@@ -535,13 +536,6 @@ export function useAudio(state, utils) {
             error: null,
             willAutoSummarize: false // Server will tell us via SUMMARIZING status
         });
-
-        // Clear IndexedDB session after successful queue
-        try {
-            await RecordingDB.clearRecordingSession();
-        } catch (dbError) {
-            console.warn('[Recording] Failed to clear IndexedDB session:', dbError);
-        }
 
         discardRecording();
 
